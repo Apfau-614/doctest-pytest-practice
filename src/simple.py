@@ -5,6 +5,7 @@ Your solutions should use the map and filter functions,
 and not for loops or list comprehensions.
 '''
 
+
 def evens(n):
     '''
     Returns a list of even numbers from 0 to n inclusive.
@@ -67,6 +68,7 @@ def small_words(text):
         return len(word) < 5
 
     return list(filter(small_words, text.split()))
+
 
 def squares(n):
     '''
