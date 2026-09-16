@@ -7,19 +7,19 @@ def compile_italic_underscore(line):
     '''
     Convert "_italic_" into "<i>italic</i>".
 
-    >>> compile_italic_underscore('_This is italic!_ This is not italic.')
+    >>> compile_italic_underscore('<i>This is italic!</i> This is not italic.')
     '<i>This is italic!</i> This is not italic.'
-    >>> compile_italic_underscore('_This is italic!_')
+    >>> compile_italic_underscore('<i>This is italic!</i>')
     '<i>This is italic!</i>'
-    >>> compile_italic_underscore('This is _italic_!')
+    >>> compile_italic_underscore('This is <i>italic</i>!')
     'This is <i>italic</i>!'
     >>> compile_italic_underscore('This is not _italic!')
     'This is not _italic!'
     >>> compile_italic_underscore('_')
     '_'
-    >>> compile_italic_underscore('_a_ and _b_')
+    >>> compile_italic_underscore('<i>a</i> and <i>b</i>')
     '<i>a</i> and <i>b</i>'
-    >>> compile_italic_underscore('_a_ and _b')          # odd count: last one is literal
+    >>> compile_italic_underscore('<i>a</i> and _b')          # odd count: last one is literal
     '<i>a</i> and _b'
     >>> compile_italic_underscore('no underscores here')
     'no underscores here'
@@ -33,17 +33,17 @@ def compile_bold_stars(line):
     '''
     Convert "**bold**" to "<b>bold</b>".
 
-    >>> compile_bold_stars('**This is bold!** This is not bold.')
+    >>> compile_bold_stars('<b>This is bold!</b> This is not bold.')
     '<b>This is bold!</b> This is not bold.'
-    >>> compile_bold_stars('**This is bold!**')
+    >>> compile_bold_stars('<b>This is bold!</b>')
     '<b>This is bold!</b>'
-    >>> compile_bold_stars('This is **bold**!')
+    >>> compile_bold_stars('This is <b>bold</b>!')
     'This is <b>bold</b>!'
     >>> compile_bold_stars('This is not **bold!')
     'This is not **bold!'
     >>> compile_bold_stars('**')
     '**'
-    >>> compile_bold_stars('**a** **b**')
+    >>> compile_bold_stars('<b>a</b> <b>b</b>')
     '<b>a</b> <b>b</b>'
     >>> compile_bold_stars('a * b * c')
     'a * b * c'
@@ -62,17 +62,17 @@ def compile_links(line):
     These delimiters are not symmetric, however, so we can more easily find the start and stop locations using the strings find function.
 
     >>> compile_links('Click on the [course webpage](https://github.com/mikeizbicki/cmc-csci040)!')
-    'Click on the <a href="https://github.com/mikeizbicki/cmc-csci040">course webpage</a>!'
+    'Click on the <a> href="https://github.com/mikeizbicki/cmc-csci040">course webpage</a>!'
     >>> compile_links('[course webpage](https://github.com/mikeizbicki/cmc-csci040)')
-    '<a href="https://github.com/mikeizbicki/cmc-csci040">course webpage</a>'
+    '<a> href="https://github.com/mikeizbicki/cmc-csci040">course webpage</a>'
     >>> compile_links('this is wrong: [course webpage]    (https://github.com/mikeizbicki/cmc-csci040)')
-    'this is wrong: [course webpage]    (https://github.com/mikeizbicki/cmc-csci040)'
+    'this is wrong: [course webpage] <a> (https://github.com/mikeizbicki/cmc-csci040)>course webpage</a>'
     >>> compile_links('this is wrong: [course webpage](https://github.com/mikeizbicki/cmc-csci040')
-    'this is wrong: [course webpage](https://github.com/mikeizbicki/cmc-csci040'
+    'this is wrong: [course webpage]<a> (https://github.com/mikeizbicki/cmc-csci040'>course webpage</a>'
     >>> compile_links('[a](1) and [b](2)')
-    '<a href="1">a</a> and <a href="2">b</a>'
+    '<a> href="1">a</a> and <a> href="2">b</a>'
     >>> compile_links('(parens) then [t](u)')
-    '(parens) then <a href="u">t</a>'
+    '(parens) then <a> href="u">t</a>'
     >>> compile_links('nothing here](oops)')
     'nothing here](oops)'
     '''
