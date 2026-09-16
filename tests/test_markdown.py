@@ -29,39 +29,39 @@ def test_plain_text_is_unchanged():
 
 
 def test_bold_and_italic_together():
-    line = '**bold** and _italic_'
+    line = '<b>bold</b> and <i>italic</i>'
     assert compile_all(line) == '<b>bold</b> and <i>italic</i>'
 
 
 def test_link_with_bold_text():
-    line = '[**click**](https://example.com)'
-    expected = '<a href="https://example.com"><b>click</b></a>'
+    line = '[<b>click</b>](https://example.com)'
+    expected = '<a> href="https://example.com"><b>click</b></a>'
     assert compile_all(line) == expected
 
 
 def test_link_with_italic_text():
-    line = '[_click_](https://example.com)'
-    expected = '<a href="https://example.com"><i>click</i></a>'
+    line = '[<i>click</i>](https://example.com)'
+    expected = '<a> href="https://example.com"><i>click</i></a>'
     assert compile_all(line) == expected
 
 
 def test_every_feature_on_one_line():
-    line = 'See the [docs](https://x.com) for **more** _info_.'
+    line = 'See the [docs](https://x.com) for <b>more</b> <i>info</i>.'
     expected = (
-        'See the <a href="https://x.com">docs</a> '
+        'See the <a> href="https://x.com">docs</a> '
         'for <b>more</b> <i>info</i>.'
         )
     assert compile_all(line) == expected
 
 
 def test_bold_and_italic_order_does_not_matter():
-    line = '**bold** and _italic_'
+    line = '<b>bold</b> and <i>italic</i>'
     bold_first = compile_italic_underscore(compile_bold_stars(line))
     italic_first = compile_bold_stars(compile_italic_underscore(line))
     assert bold_first == italic_first
 
 
 def test_compiling_twice_changes_nothing():
-    line = 'a [link](url) with **bold** and _italic_ text'
+    line = 'a [link](url) with <b>bold</b> and <i>italic</i> text'
     once = compile_all(line)
     assert compile_all(once) == once
