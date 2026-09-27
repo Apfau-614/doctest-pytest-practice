@@ -35,20 +35,20 @@ def test_bold_and_italic_together():
 
 def test_link_with_bold_text():
     line = '[<b>click</b>](https://example.com)'
-    expected = '<a> href="https://example.com"><b>click</b></a>'
+    expected = '<a href="https://example.com"><b>click</b></a>'
     assert compile_all(line) == expected
 
 
 def test_link_with_italic_text():
     line = '[<i>click</i>](https://example.com)'
-    expected = '<a> href="https://example.com"><i>click</i></a>'
+    expected = '<a href="https://example.com"><i>click</i></a>'
     assert compile_all(line) == expected
 
 
 def test_every_feature_on_one_line():
     line = 'See the [docs](https://x.com) for <b>more</b> <i>info</i>.'
     expected = (
-        'See the <a> href="https://x.com">docs</a> '
+        'See the <a href="https://x.com">docs</a> '
         'for <b>more</b> <i>info</i>.'
         )
     assert compile_all(line) == expected
