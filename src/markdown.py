@@ -42,7 +42,7 @@ def compile_italic_underscore(line):
         i += 2
 
     if len(parts) % 2 == 0:
-        result += '_' + parts[-1]
+        line += '_' + parts[-1]
 
     return line
 
@@ -82,7 +82,7 @@ def compile_bold_stars(line):
         i += 2
 
     if len(parts) % 2 == 0:
-        result += '**' + parts[-1]
+        line += '**' + parts[-1]
 
     return line
 
@@ -112,17 +112,17 @@ def compile_links(line):
     >>> compile_links('nothing here](oops)')
     'nothing here](oops)'
     '''
-    result = ''
+    line = ''
     i = 0
     while True:
         start = line.find('[', i)
         if start == -1:
-            result += line[i:]
+            line += line[i:]
             break
 
         end_bracket = line.find(']', start + 1)
         if end_bracket == -1:
-            result += line[i:]
+            line += line[i:]
             break
 
         next_char_is_paren = (
@@ -130,18 +130,18 @@ def compile_links(line):
             and line[end_bracket + 1] == '('
         )
         if not next_char_is_paren:
-            result += line[i:end_bracket + 1]
+            line += line[i:end_bracket + 1]
             i = end_bracket + 1
             continue
 
         end_paren = line.find(')', end_bracket + 2)
         if end_paren == -1:
-            result += line[i:]
+            line += line[i:]
             break
 
         text = line[start + 1:end_bracket]
         url = line[end_bracket + 2:end_paren]
-        result += line[i:start] + '<a href="' + url + '">' + text + '</a>'
+        line += line[i:start] + '<a href="' + url + '">' + text + '</a>'
         i = end_paren + 1
 
-    return result
+    return line
