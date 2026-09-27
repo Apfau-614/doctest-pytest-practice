@@ -35,17 +35,16 @@ def compile_italic_underscore(line):
 
     num_pairs = (len(parts) - 1) // 2
 
-    line = parts[0]
+    result = parts[0]
     i = 1
     while i <= num_pairs * 2:
-        line += '<i>' + parts[i] + '</i>' + parts[i + 1]
+        result += '<i>' + parts[i] + '</i>' + parts[i + 1]
         i += 2
 
     if len(parts) % 2 == 0:
-        line += '_' + parts[-1]
+        result += '_' + parts[-1]
 
-    return line
-
+    return result
 
 def compile_bold_stars(line):
     '''
@@ -75,16 +74,16 @@ def compile_bold_stars(line):
 
     num_pairs = (len(parts) - 1) // 2
 
-    line = parts[0]
+    result = parts[0]
     i = 1
     while i <= num_pairs * 2:
-        line += '<b>' + parts[i] + '</b>' + parts[i + 1]
+        result += '<b>' + parts[i] + '</b>' + parts[i + 1]
         i += 2
 
     if len(parts) % 2 == 0:
-        line += '**' + parts[-1]
+        result += '**' + parts[-1]
 
-    return line
+    return result
 
 
 def compile_links(line):
@@ -112,17 +111,17 @@ def compile_links(line):
     >>> compile_links('nothing here](oops)')
     'nothing here](oops)'
     '''
-    line = ''
+    result = ''
     i = 0
     while True:
         start = line.find('[', i)
         if start == -1:
-            line += line[i:]
+            result += line[i:]
             break
 
         end_bracket = line.find(']', start + 1)
         if end_bracket == -1:
-            line += line[i:]
+            result += line[i:]
             break
 
         next_char_is_paren = (
@@ -130,18 +129,18 @@ def compile_links(line):
             and line[end_bracket + 1] == '('
         )
         if not next_char_is_paren:
-            line += line[i:end_bracket + 1]
+            result += line[i:end_bracket + 1]
             i = end_bracket + 1
             continue
 
         end_paren = line.find(')', end_bracket + 2)
         if end_paren == -1:
-            line += line[i:]
+            result += line[i:]
             break
 
         text = line[start + 1:end_bracket]
         url = line[end_bracket + 2:end_paren]
-        line += line[i:start] + '<a href="' + url + '">' + text + '</a>'
+        result += line[i:start] + '<a href="' + url + '">' + text + '</a>'
         i = end_paren + 1
 
-    return line
+    return result
