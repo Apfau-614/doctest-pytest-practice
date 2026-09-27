@@ -112,7 +112,7 @@ def compile_links(line):
     >>> compile_links('nothing here](oops)')
     'nothing here](oops)'
     '''
-     result = ''
+    result = ''
     i = 0
     while True:
         start = line.find('[', i)
