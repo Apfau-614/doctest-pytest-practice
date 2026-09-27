@@ -38,7 +38,7 @@ def compile_italic_underscore(line):
     line = parts[0]
     i = 1
     while i <= num_pairs * 2:
-        result += '<i>' + parts[i] + '</i>' + parts[i + 1]
+        line += '<i>' + parts[i] + '</i>' + parts[i + 1]
         i += 2
 
     if len(parts) % 2 == 0:
@@ -78,7 +78,7 @@ def compile_bold_stars(line):
     line = parts[0]
     i = 1
     while i <= num_pairs * 2:
-        result += '<b>' + parts[i] + '</b>' + parts[i + 1]
+        line += '<b>' + parts[i] + '</b>' + parts[i + 1]
         i += 2
 
     if len(parts) % 2 == 0:
@@ -97,14 +97,14 @@ def compile_links(line):
     These delimiters are not symmetric, however, so we can more easily
     find the start and stop locations using the strings find function.
 
-    >>> compile_links('Click on the [course webpage](https://github.com/mikeizbicki/cmc-csci040)!')
-    'Click on the <a>href="https://github.com/mikeizbicki/cmc-csci040">course webpage</a>!'
-    >>> compile_links('[course webpage](https://github.com/mikeizbicki/cmc-csci040)')
-    '<a>href="https://github.com/mikeizbicki/cmc-csci040">course webpage</a>'
-    >>> compile_links('this is wrong: [course webpage](https://github.com/mikeizbicki/cmc-csci040)')
-    'this is wrong: [course webpage] <a>(https://github.com/mikeizbicki/cmc-csci040)>course webpage</a>'
-    >>> compile_links('this is wrong:[course webpage](https://github.com/mikeizbicki/cmc-csci040')
-    'this is wrong: [course webpage]<a>(https://github.com/mikeizbicki/cmc-csci040'>course webpage</a>'
+    >>> compile_links('Click on the [course webpage](https://x.co/course)!')
+    'Click on the <a>href="https://x.co/course">course webpage</a>!'
+    >>> compile_links('[course webpage](https://x.co/course)')
+    '<a>href="https://x.co/course">course webpage</a>'
+    >>> compile_links('this is wrong: [course webpage](https://x.co/course)')
+    'this is wrong: [course webpage] <a>(https://x.co/course)>course webpage</a>'
+    >>> compile_links('this is wrong:[course webpage](https://x.co/course')
+    'this is wrong: [course webpage]<a>(https://x.co/course'>course webpage</a>'
     >>> compile_links('[a](1) and [b](2)')
     '<a> href="1">a</a> and <a> href="2">b</a>'
     >>> compile_links('(parens) then [t](u)')
