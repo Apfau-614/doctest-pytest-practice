@@ -106,9 +106,9 @@ def compile_links(line):
     >>> compile_links('this is wrong:[course webpage](https://x.co/course')
     'this is wrong:[course webpage](https://x.co/course'
     >>> compile_links('[a](1) and [b](2)')
-    '<a> href="1">a</a> and <a> href="2">b</a>'
+    '<a href="1">a</a> and <a href="2">b</a>'
     >>> compile_links('(parens) then [t](u)')
-    '(parens) then <a> href="u">t</a>'
+    '(parens) then <a href="u">t</a>'
     >>> compile_links('nothing here](oops)')
     'nothing here](oops)'
     '''
