@@ -46,6 +46,7 @@ def compile_italic_underscore(line):
 
     return result
 
+
 def compile_bold_stars(line):
     '''
     Convert "**bold**" to "<b>bold</b>".
