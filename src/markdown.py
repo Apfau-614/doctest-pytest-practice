@@ -100,7 +100,7 @@ def compile_links(line):
     >>> compile_links('Click on the [course webpage](https://x.co/course)!')
     'Click on the <a href="https://x.co/course">course webpage</a>!'
     >>> compile_links('[course webpage](https://x.co/course)')
-    '<a>href="https://x.co/course">course webpage</a>'
+    '<a href="https://x.co/course">course webpage</a>'
     >>> compile_links('this is wrong: [course webpage](https://x.co/course)')
     'this is wrong:[course webpage]<a>(https://x.co/course)>course webpage</a>'
     >>> compile_links('this is wrong:[course webpage](https://x.co/course')
