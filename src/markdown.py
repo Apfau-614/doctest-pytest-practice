@@ -98,7 +98,7 @@ def compile_links(line):
     find the start and stop locations using the strings find function.
 
     >>> compile_links('Click on the [course webpage](https://x.co/course)!')
-    'Click on the <a>href="https://x.co/course">course webpage</a>!'
+    'Click on the <a href="https://x.co/course">course webpage</a>!'
     >>> compile_links('[course webpage](https://x.co/course)')
     '<a>href="https://x.co/course">course webpage</a>'
     >>> compile_links('this is wrong: [course webpage](https://x.co/course)')
